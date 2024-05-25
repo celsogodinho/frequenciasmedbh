@@ -172,6 +172,8 @@ def rme(dias_letivos, ano, mes):
     }
     
     df=resultado[['regional', '_0_10', '_10_20', '_20_25', '_25_100', 'total']].rename(columns=rename)
+
+    st.write('Total de Alunos por Taxa de Infrequência nas Regionais')
     st.dataframe(df, hide_index=True, use_container_width=True)
 
 

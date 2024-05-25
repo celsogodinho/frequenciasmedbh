@@ -157,5 +157,7 @@ def regional(nome_regional, regional_id, dias_letivos, ano, mes):
     }
     
     df=resultado[['nome', '_0_10', '_10_20', '_20_25', '_25_100', 'total']].rename(columns=rename)
+
+    st.write('Total de Alunos por Taxa de Infrequência nas escolas da %s'%nome_regional)
     st.dataframe(df, hide_index=True, use_container_width=True)
 
