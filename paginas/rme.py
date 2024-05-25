@@ -1,7 +1,5 @@
 import streamlit as st
 import pandas as pd
-import plotly.graph_objects as go
-import plotly.express as px
 from streamlit_apexjs import st_apexcharts
 import pandas as pd
 from streamlit_extras.metric_cards import style_metric_cards
@@ -164,18 +162,16 @@ def rme(dias_letivos, ano, mes):
 
     st_apexcharts(options, series, 'bar', 1100)    
 
-    colunas = ["Local",  "Menor ou igual à 10%", "Entre 10% e 20%", "Entre 20% e 25%","Maior ou igual à 25%", "Total de Alunos"]
-    tabela = go.Figure(data=[go.Table(
-        header=dict(values=colunas, #fill_color='paleturquoise',
-                    align='left'),
-        cells=dict(values=[resultado.regional,resultado._0_10, resultado._10_20, resultado._20_25, resultado._25_100, resultado.total],
-                #fill_color='lavender',
-                align='left'))
-    ],
-        layout=go.Layout(
-        title=go.layout.Title(text="Total de Alunos por Taxa de Infrequência")
-    )
-    )
+    rename = {
+        'regional':'Regional', 
+        '_0_10':'Menor ou igual à 10%', 
+        '_10_20':'Entre 10% e 20%', 
+        '_20_25':'Entre 20% e 25%', 
+        '_25_100':'Maior ou igual à 25%', 
+        'total':'Total'
+    }
+    
+    df=resultado[['regional', '_0_10', '_10_20', '_20_25', '_25_100', 'total']].rename(columns=rename)
+    st.dataframe(df, hide_index=True, use_container_width=True)
 
-    st.plotly_chart(tabela, use_container_width=True) 
 
